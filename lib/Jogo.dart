@@ -9,6 +9,7 @@ class Jogo extends StatefulWidget{
 class _JogoState extends State<Jogo>{
 
   var _imagemApp = AssetImage("assets/padrao.png");
+  var _mensagem = "Mensagem do jogo";
   
 void _opcaoSelecionada(String escolhaDoUsuario){
   var opcoes = ["pedra", "tesoura", "papel"];
@@ -33,6 +34,22 @@ void _opcaoSelecionada(String escolhaDoUsuario){
         this._imagemApp = AssetImage("assets/papel.png");
       });
       break;
+  }
+
+  if(escolhaApp == escolhaDoUsuario){
+    setState(() {
+      _mensagem = "Empate";
+    });
+  }
+  else if((escolhaDoUsuario == "pedra" && escolhaApp == "tesoura") || (escolhaDoUsuario == "papel" && escolhaApp == "pedra") || (escolhaDoUsuario == "tesoura" && escolhaApp == "papel")){
+    setState(() {
+      _mensagem = "Você Ganhou!!!";
+    });
+  }
+  else{
+    setState(() {
+      _mensagem = "Você Perdeu!!!";
+    });
   }
 
 }
@@ -92,6 +109,18 @@ void _opcaoSelecionada(String escolhaDoUsuario){
                   ],
                 ),
             ),
+            Padding(
+              padding: EdgeInsets.only(
+                top: 20,
+                      ),
+              child: Text(
+                _mensagem,
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold, 
+                  ), 
+                ),
+              )
 
         ],
         crossAxisAlignment: CrossAxisAlignment.center,
