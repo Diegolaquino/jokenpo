@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:math';
 
 class Jogo extends StatefulWidget{
   @override
@@ -6,6 +7,36 @@ class Jogo extends StatefulWidget{
 }
 
 class _JogoState extends State<Jogo>{
+
+  var _imagemApp = AssetImage("assets/padrao.png");
+  
+void _opcaoSelecionada(String escolhaDoUsuario){
+  var opcoes = ["pedra", "tesoura", "papel"];
+  var numero = Random().nextInt(3);
+  var escolhaApp = opcoes[numero];
+
+  //exibição da imagem escolhida pelo App
+
+  switch( escolhaApp ){
+    case "pedra":
+      setState(() {
+        this._imagemApp = AssetImage("assets/pedra.png");
+      });
+      break;
+    case "tesoura":
+      setState(() {
+        this._imagemApp = AssetImage("assets/tesoura.png");
+      });
+      break;
+    case "papel":
+      setState(() {
+        this._imagemApp = AssetImage("assets/papel.png");
+      });
+      break;
+  }
+
+}
+
   @override
   Widget build(BuildContext context){
     return Scaffold(
@@ -27,7 +58,7 @@ class _JogoState extends State<Jogo>{
           SizedBox(
             width: 120,
             height: 120,
-            child: Image.asset("assets/papel.png", width: 20,), 
+            child: Image(image: _imagemApp,), 
           ),
           Padding(
             padding: EdgeInsets.only(
@@ -44,21 +75,19 @@ class _JogoState extends State<Jogo>{
               top: 20, left: 10, right: 10,
             ),
             child: Row( 
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
-                    SizedBox(
-                      width: 100,
-                      height: 100,
-                      child: Image.asset("assets/papel.png"), 
+                    GestureDetector(
+                      onTap: () => _opcaoSelecionada("papel"),
+                      child: Image.asset("assets/papel.png", width: 100, height: 100,), 
                     ),
-                    SizedBox(
-                      width: 100,
-                      height: 100,
-                      child: Image.asset("assets/pedra.png"), 
+                    GestureDetector(
+                      onTap: () => _opcaoSelecionada("pedra"),
+                      child: Image.asset("assets/pedra.png", width: 100, height: 100,), 
                     ),
-                    SizedBox(
-                      width: 100,
-                      height: 100,
-                      child: Image.asset("assets/tesoura.png"), 
+                    GestureDetector(
+                      onTap: () => _opcaoSelecionada("tesoura"),
+                      child: Image.asset("assets/tesoura.png", width: 100, height: 100,), 
                     ),
                   ],
                 ),
